@@ -4,24 +4,23 @@ let backgroundMusic = null;
 let isPlaying = false;
 
 export const setupPlayer = () => {
-  // Enable playback in silence mode
+  if (backgroundMusic) return; // Prevent multiple initializations
+
   Sound.setCategory('Playback');
   
-  if (!backgroundMusic) {
-    // Fix the path to use require
-    backgroundMusic = new Sound(
-      require('../../assets/sound/bgSound/shipsBattle.mp3'), 
-      (error) => {
-        if (error) {
-          console.error('Failed to load sound', error);
-          return;
-        }
-        // Set looping to true for background music
-        backgroundMusic.setNumberOfLoops(-1);
-        // Optional: Set volume
-        backgroundMusic.setVolume(0.5);
-    });
-  }
+  backgroundMusic = new Sound(
+    require('../../assets/sound/bgSound/shipsBattle.mp3'), 
+    (error) => {
+      if (error) {
+        console.error('Failed to load sound', error);
+        return;
+      }
+      backgroundMusic.setNumberOfLoops(-1);
+      backgroundMusic.setVolume(0.5);
+      // Auto-play after setup
+      playBackgroundMusic();
+    }
+  );
 };
 
 export const playBackgroundMusic = () => {
@@ -41,14 +40,15 @@ export const playBackgroundMusic = () => {
 };
 
 export const pauseBackgroundMusic = () => {
-  backgroundMusic?.pause();
-  isPlaying = false;
+  if (backgroundMusic && isPlaying) {
+    backgroundMusic.pause();
+    isPlaying = false;
+  }
 };
 
 export const toggleBackgroundMusic = () => {
   if (!backgroundMusic) {
     setupPlayer();
-    playBackgroundMusic();
     return true;
   }
 

@@ -619,7 +619,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    // padding: 20,
   },
   gameOverContent: {
     width: '100%',
@@ -666,7 +666,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   returnButtonGradient: {
-    padding: 15,
+    // padding: 15,
     alignItems: 'center',
   },
   returnButtonText: {
@@ -676,6 +676,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
+    paddingVertical: 10,
   },
   switch: {
     transform: [{ scale: 0.8 }],

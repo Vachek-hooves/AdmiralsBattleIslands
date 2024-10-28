@@ -5,7 +5,9 @@ import { AppContextProvider } from './store/context';
 import { View, StyleSheet, Platform, Image, TouchableOpacity, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SoundControl from './components/userSoundControl/SoundControl';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { AppState } from 'react-native';
+import { setupPlayer, playBackgroundMusic, pauseBackgroundMusic } from './components/userSoundControl/player';
 
 import WelcomeScreen from './screen/Stack/StackWelcomeScreen';
 import {
@@ -27,7 +29,33 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const [isSoundOn, setIsSoundOn] = useState(false);
+  const [isSoundOn, setIsSoundOn] = useState(true); // Set initial state to true
+
+  // Handle app state changes
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'active' && isSoundOn) {
+        playBackgroundMusic();
+      } else if (nextAppState === 'background' || nextAppState === 'inactive') {
+        pauseBackgroundMusic();
+      }
+    });
+
+    // Initialize sound when app starts
+    setupPlayer();
+    playBackgroundMusic();
+    setIsSoundOn(true);
+
+    return () => {
+      subscription.remove();
+      pauseBackgroundMusic();
+    };
+  }, []);
+
+  const handleSoundToggle = () => {
+    const newState = toggleBackgroundMusic();
+    setIsSoundOn(newState);
+  };
 
   return (
     <Tab.Navigator
@@ -114,10 +142,7 @@ const TabNavigator = () => {
           tabBarButton: (props) => (
             <TouchableOpacity
               {...props}
-              onPress={() => {
-                const newState = toggleBackgroundMusic();
-                setIsSoundOn(newState);
-              }}
+              onPress={handleSoundToggle}
               style={styles.tabBarItem}
             >
               <Image
