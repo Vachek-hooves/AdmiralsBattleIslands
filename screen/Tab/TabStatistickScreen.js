@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    paddingTop: 50,
   },
   title: {
     fontSize: 28,
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
+    marginTop:50
   },
   scrollContent: {
     alignItems: 'center',
