@@ -13,7 +13,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
-const imageHeight = width * 0.75;
+const imageHeight = width * 0.9;
 
 const StackBattleScreen = () => {
   const route = useRoute();
@@ -23,7 +23,7 @@ const StackBattleScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Back Button - Always visible at the top */}
-      <TouchableOpacity 
+      {/* <TouchableOpacity 
         style={styles.backButton}
         onPress={() => navigation.goBack()}
       >
@@ -33,7 +33,7 @@ const StackBattleScreen = () => {
         >
           <Text style={styles.backButtonText}>←</Text>
         </LinearGradient>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <ScrollView 
         contentContainerStyle={styles.scrollContent}
@@ -90,17 +90,19 @@ const styles = StyleSheet.create({
   },
   battleImage: {
     width: width,
-    height: imageHeight + 120,
+    height: imageHeight ,
   },
   contentContainer: {
     marginTop: -20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     overflow: 'hidden',
+    // paddingHorizontal: 20,
   },
   content: {
-    padding: 20,
-    minHeight: 400,
+    // padding: 20,
+    minHeight: 450,
+    
   },
   // Battle info styles
   battleName: {
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'justify',
     marginBottom: 20, // Added margin to separate from return button
+    paddingHorizontal: 10,
   },
   // Back button styles - Top left corner
   backButton: {
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
   },
   backButtonGradient: {
     width: 50,
-    height: 50,
+    // height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
@@ -179,9 +182,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    marginHorizontal: 20,
   },
   returnButtonGradient: {
-    padding: 15,
+    
+    // padding: 15,
     alignItems: 'center',
   },
   returnButtonText: {
@@ -191,6 +196,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.25)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
+    paddingVertical: 10,
   },
 });
 
