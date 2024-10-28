@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   headerGradient: {
     flex: 1,
     justifyContent: 'flex-end',
-    padding: 20,
+    // padding: 20,
   },
   contentContainer: {
     marginTop: -50,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   content: {
-    padding: 20,
+    // padding: 20,
     paddingTop: 40,
     minHeight: 500,
   },
