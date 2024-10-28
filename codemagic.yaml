@@ -20,11 +20,6 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
-      - name: Bundle React Native code
-        script: |
-          cd ios
-          export NODE_BINARY=$(command -v node)
-          ../node_modules/react-native/scripts/react-native-xcode.sh
       - name: Set up provisioning profile settings on  Xcode project
         script: |
           cd ios
@@ -46,7 +41,8 @@ workflows:
           #!/bin/sh
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            --config Release
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
