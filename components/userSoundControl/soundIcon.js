@@ -6,10 +6,11 @@ const SoundIcon = ({isOnline}) => {
     <Image
       source={require('../../assets/icons/melody.png')}
       style={{
-        width: 35,
-        height: 35,
+        width: 44,
+        height: 45,
         tintColor: isOnline ? '#4ECDC4' : '#95A5A6',
         opacity: 0.9,
+        marginTop: 12,
       }}
     />
   );

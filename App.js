@@ -2,9 +2,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppContextProvider } from './store/context';
-import { View, StyleSheet, Platform, Image } from 'react-native';
+import { View, StyleSheet, Platform, Image, TouchableOpacity, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SoundControl from './components/userSoundControl/SoundControl';
+import {useState} from 'react';
 
 import WelcomeScreen from './screen/Stack/StackWelcomeScreen';
 import {
@@ -20,82 +21,128 @@ import {
   StackQuizScreen,
   StackShipsBattle,
 } from './screen/Stack';
+import { toggleBackgroundMusic } from './components/userSoundControl/player';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const [isSoundOn, setIsSoundOn] = useState(false);
+
   return (
-    <View style={{ flex: 1 }}>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          animation: 'fade',
-          animationDuration: 1000,
-          tabBarStyle: styles.tabBar,
-          tabBarBackground: () => (
-            <LinearGradient
-              colors={['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.95)']}
-              style={styles.tabBarGradient}
-            />
-          ),
-          tabBarIcon: ({ focused }) => {
-            let iconSource;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        animation: 'fade',
+        animationDuration: 1000,
+        tabBarStyle: styles.tabBar,
+        tabBarBackground: () => (
+          <LinearGradient
+            colors={['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.95)']}
+            style={styles.tabBarGradient}
+          />
+        ),
+        tabBarIcon: ({ focused }) => {
+          let iconSource;
 
-            if (route.name === 'TabQuizScreen') {
+          switch (route.name) {
+            case 'TabQuizScreen':
               iconSource = require('./assets/icons/book.png');
-            } else if (route.name === 'TabHarborScreen') {
+              break;
+            case 'TabHarborScreen':
               iconSource = require('./assets/icons/boat.png');
-            } else if (route.name === 'TabShipsBattle') {
+              break;
+            case 'TabShipsBattle':
               iconSource = require('./assets/icons/game-controller.png');
-            } else if (route.name === 'TabStatistickScreen') {
+              break;
+            case 'TabStatistickScreen':
               iconSource = require('./assets/icons/history.png');
-            }
+              break;
+            case 'Sound':
+              iconSource = require('./assets/icons/melody.png');
+              break;
+          }
 
-            return (
+          return (
+            <Image
+              source={iconSource}
+              style={[
+                styles.tabIcon,
+                { 
+                  tintColor: focused ? '#4ECDC4' : '#95A5A6',
+                  // For sound icon, use the sound state instead of focused
+                  ...(route.name === 'Sound' && {
+                    tintColor: isSoundOn ? '#4ECDC4' : '#95A5A6'
+                  })
+                },
+              ]}
+              resizeMode="contain"
+            />
+          );
+        },
+        tabBarActiveTintColor: '#4ECDC4',
+        tabBarInactiveTintColor: '#95A5A6',
+        tabBarLabelStyle: styles.tabBarLabel,
+        tabBarItemStyle: styles.tabBarItem,
+      })}
+    >
+      <Tab.Screen
+        name="TabQuizScreen"
+        component={TabQuizScreen}
+        options={{ tabBarLabel: 'Quiz' }}
+      />
+      <Tab.Screen
+        name="TabHarborScreen"
+        component={TabHarborScreen}
+        options={{ tabBarLabel: 'Harbor' }}
+      />
+      <Tab.Screen
+        name="TabShipsBattle"
+        component={TabShipsBattle}
+        options={{ tabBarLabel: 'Battle' }}
+      />
+      <Tab.Screen
+        name="TabStatistickScreen"
+        component={TabStatistickScreen}
+        options={{ tabBarLabel: 'History' }}
+      />
+      <Tab.Screen
+        name="Sound"
+        component={EmptyComponent}
+        options={{
+          tabBarLabel: 'Sound',
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                const newState = toggleBackgroundMusic();
+                setIsSoundOn(newState);
+              }}
+              style={styles.tabBarItem}
+            >
               <Image
-                source={iconSource}
+                source={require('./assets/icons/melody.png')}
                 style={[
                   styles.tabIcon,
-                  { tintColor: focused ? '#4ECDC4' : '#95A5A6' },
+                  { tintColor: isSoundOn ? '#4ECDC4' : '#95A5A6' }
                 ]}
                 resizeMode="contain"
               />
-            );
-          },
-          tabBarActiveTintColor: '#4ECDC4',
-          tabBarInactiveTintColor: '#95A5A6',
-          tabBarLabelStyle: styles.tabBarLabel,
-          tabBarItemStyle: styles.tabBarItem,
-        })}
-      >
-        <Tab.Screen
-          name="TabQuizScreen"
-          component={TabQuizScreen}
-          options={{ tabBarLabel: 'Quiz' }}
-        />
-        <Tab.Screen
-          name="TabHarborScreen"
-          component={TabHarborScreen}
-          options={{ tabBarLabel: 'Harbor' }}
-        />
-        <Tab.Screen
-          name="TabShipsBattle"
-          component={TabShipsBattle}
-          options={{ tabBarLabel: 'Battle' }}
-        />
-        <Tab.Screen
-          name="TabStatistickScreen"
-          component={TabStatistickScreen}
-          options={{ tabBarLabel: 'History' }}
-        />
-      </Tab.Navigator>
-      <View style={styles.soundControlContainer}>
-        <SoundControl />
-      </View>
-    </View>
+              <Text style={[
+                styles.tabBarLabel,
+                { color: isSoundOn ? '#4ECDC4' : '#95A5A6' }
+              ]}>
+                Sound
+              </Text>
+            </TouchableOpacity>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
+
+const EmptyComponent = () => null;
 
 function App() {
   return (
@@ -158,23 +205,18 @@ const styles = StyleSheet.create({
   tabBarLabel: {
     fontSize: 12,
     fontWeight: '600',
-    // paddingBottom: 5,
-    marginTop: 15,
+    marginTop: 5,
   },
   tabBarItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingTop: 10,
   },
   tabIcon: {
     width: 44,
     height: 45,
-    // marginTop: 2,
-    marginTop: 12,
-  },
-  soundControlContainer: {
-    position: 'absolute',
-    right: 25,
-    bottom: Platform.OS === 'ios' ? 120 : 112,
-    zIndex: 999,
+    // marginTop: 12,
   },
 });
 

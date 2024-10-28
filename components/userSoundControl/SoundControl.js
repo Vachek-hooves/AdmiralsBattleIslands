@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// import IconMusic from './IconMusic';
+import { View } from 'react-native';
 import SoundIcon from './SoundIcon';
 import { toggleBackgroundMusic, setupPlayer } from './player';
 
@@ -25,19 +24,10 @@ const SoundControl = () => {
   };
 
   return (
-    <TouchableOpacity onPress={handleSoundToggle}>
+    <View>
       <SoundIcon isOnline={isPlaying} />
-    </TouchableOpacity>
+    </View>
   );
 };
 
 export default SoundControl;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-});
