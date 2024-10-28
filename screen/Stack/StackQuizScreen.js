@@ -115,7 +115,7 @@ const StackQuizScreen = ({ route, navigation }) => {
               </Text>
             </View>
             <View style={styles.buttonContainer}>
-              <OptionButton option="Try Again" onPress={restartQuiz} />
+              {/* <OptionButton option="Try Again" onPress={restartQuiz} /> */}
               <OptionButton option="Return to Fleet" onPress={finishQuiz} />
             </View>
           </View>
