@@ -1,25 +1,33 @@
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import IconMusic from './IconMusic';
+// import IconMusic from './IconMusic';
 import SoundIcon from './SoundIcon';
+import { toggleBackgroundMusic, setupPlayer } from './player';
 
 const SoundControl = () => {
-  const [playTrack, setPlayTrack] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const soundToggleControl = async () => {
-    await toggleBackgroundMusic();
-    setPlayTrack((prev) => !prev);
-    console.log(playSound);
+  useEffect(() => {
+    try {
+      setupPlayer();
+    } catch (error) {
+      console.error('Error setting up sound:', error);
+    }
+  }, []);
+
+  const handleSoundToggle = () => {
+    try {
+      const newPlayingState = toggleBackgroundMusic();
+      setIsPlaying(newPlayingState);
+    } catch (error) {
+      console.error('Error toggling sound:', error);
+    }
   };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={soundToggleControl}>
-        {playTrack ? (
-          <SoundIcon onPlay={playTrack} />
-        ) : (
-          <SoundIcon onPlay={playTrack} />
-        )}
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={handleSoundToggle}>
+      <SoundIcon isOnline={isPlaying} />
+    </TouchableOpacity>
   );
 };
 

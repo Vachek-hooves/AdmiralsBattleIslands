@@ -57,7 +57,7 @@ const StackQuizScreen = ({ route, navigation }) => {
     setShowResult(true);
     const finalScore = score;  // Remove the +1 here
     saveQuizScore(levelNumber, finalScore);
-    console.log(`Quiz completed. Level: ${levelNumber}, Score: ${finalScore}`);
+    // console.log(`Quiz completed. Level: ${levelNumber}, Score: ${finalScore}`);
     
     // Check if the user answered 10 or more questions correctly
     if (finalScore >= 10) {
@@ -125,7 +125,7 @@ const StackQuizScreen = ({ route, navigation }) => {
   }
 
   const currentQuestion = quizLevel.questions[currentQuestionIndex];
-  console.log(quizLevel.admiralInfo.image);
+ 
 
   return (
     <ImageBackground

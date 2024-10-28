@@ -1,135 +1,70 @@
-import TrackPlayer, {Capability, State} from 'react-native-track-player';
+import Sound from 'react-native-sound';
 
-export let isPlayerInitialized = false;
-let initializationPromise = null;
+let backgroundMusic = null;
+let isPlaying = false;
 
-export const setupPlayer = async () => {
-  if (isPlayerInitialized) {
-    return;
-  }
-
-  if (initializationPromise) {
-    return initializationPromise;
-  }
-
-  initializationPromise = new Promise(async (resolve, reject) => {
-    try {
-      let setupResult;
-      try {
-        const playbackState = await TrackPlayer.getPlaybackState();
-        setupResult = playbackState.state;
-      } catch (error) {
-        // If getPlaybackState throws an error, the player is not initialized
-        setupResult = State.None;
-      }
-
-      if (setupResult !== State.None) {
-        console.log('Player already set up, skipping initialization');
-        isPlayerInitialized = true;
-        resolve();
-        return;
-      }
-
-      try {
-        await TrackPlayer.setupPlayer();
-      } catch (setupError) {
-        if (
-          setupError.message.includes('The player has already been initialized')
-        ) {
-          console.log('Player was already initialized, continuing...');
-          isPlayerInitialized = true;
-          resolve();
+export const setupPlayer = () => {
+  // Enable playback in silence mode
+  Sound.setCategory('Playback');
+  
+  if (!backgroundMusic) {
+    // Fix the path to use require
+    backgroundMusic = new Sound(
+      require('../../assets/sound/bgSound/shipsBattle.mp3'), 
+      (error) => {
+        if (error) {
+          console.error('Failed to load sound', error);
           return;
-        } else {
-          throw setupError;
         }
-      }
-
-      await TrackPlayer.updateOptions({
-        capabilities: [Capability.Play, Capability.Pause],
-        compactCapabilities: [Capability.Play, Capability.Pause],
-      });
-
-      await TrackPlayer.add({
-        id: 'backgroundMusic',
-        url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
-        title: 'Background Music',
-        artist: 'Your App',
-      });
-
-      isPlayerInitialized = true;
-      console.log('Track player set up successfully');
-      resolve();
-    } catch (error) {
-      console.error('Error setting up player:', error);
-      isPlayerInitialized = false;
-      reject(error);
-    } finally {
-      initializationPromise = null;
-    }
-  });
-
-  return initializationPromise;
-};
-
-export const playBackgroundMusic = async () => {
-  await setupPlayer();
-  try {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (currentTrack === null) {
-      await TrackPlayer.reset();
-      await TrackPlayer.add({
-        id: 'backgroundMusic',
-        url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
-        title: 'Background Music',
-        artist: 'Your App',
-      });
-    }
-    await TrackPlayer.play();
-  } catch (error) {
-    console.error('Error playing background music:', error);
-    // If there's an error, try to re-initialize the player
-    isPlayerInitialized = false;
-    await setupPlayer();
-    await TrackPlayer.add({
-      id: 'backgroundMusic',
-      url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
-      title: 'Background Music',
-      artist: 'Your App',
+        // Set looping to true for background music
+        backgroundMusic.setNumberOfLoops(-1);
+        // Optional: Set volume
+        backgroundMusic.setVolume(0.5);
     });
-    await TrackPlayer.play();
   }
 };
 
-export const resetPlayer = async () => {
-  if (!isPlayerInitialized) {
+export const playBackgroundMusic = () => {
+  if (!backgroundMusic) {
+    setupPlayer();
     return;
   }
-
-  try {
-    await TrackPlayer.stop();
-    await TrackPlayer.reset();
-    isPlayerInitialized = false;
-    console.log('Track player reset successfully');
-  } catch (error) {
-    console.error('Error resetting player:', error);
-    isPlayerInitialized = false;
+  
+  if (!isPlaying) {
+    backgroundMusic.play((success) => {
+      if (!success) {
+        console.log('Playback failed due to audio decoding errors');
+      }
+    });
+    isPlaying = true;
   }
 };
 
-export const toggleBackgroundMusic = async () => {
-  await setupPlayer();
-  try {
-    const playbackState = await TrackPlayer.getPlaybackState();
-    if (playbackState.state === State.Playing) {
-      await TrackPlayer.pause();
-    } else {
-      await TrackPlayer.play();
-    }
-  } catch (error) {
-    console.error('Error toggling background music:', error);
-    // If there's an error, try to re-initialize the player
-    isPlayerInitialized = false;
-    await playBackgroundMusic();
+export const pauseBackgroundMusic = () => {
+  backgroundMusic?.pause();
+  isPlaying = false;
+};
+
+export const toggleBackgroundMusic = () => {
+  if (!backgroundMusic) {
+    setupPlayer();
+    playBackgroundMusic();
+    return true;
+  }
+
+  if (isPlaying) {
+    pauseBackgroundMusic();
+    return false;
+  } else {
+    playBackgroundMusic();
+    return true;
+  }
+};
+
+export const cleanupPlayer = () => {
+  if (backgroundMusic) {
+    backgroundMusic.release();
+    backgroundMusic = null;
+    isPlaying = false;
   }
 };

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppContextProvider } from './store/context';
 import { View, StyleSheet, Platform, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import SoundControl from './components/userSoundControl/SoundControl';
 
 import WelcomeScreen from './screen/Stack/StackWelcomeScreen';
 import {
@@ -25,69 +26,74 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        animation: 'fade',
-        animationDuration: 1000,
-        tabBarStyle: styles.tabBar,
-        tabBarBackground: () => (
-          <LinearGradient
-            colors={['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.95)']}
-            style={styles.tabBarGradient}
-          />
-        ),
-        tabBarIcon: ({ focused }) => {
-          let iconSource;
-
-          if (route.name === 'TabQuizScreen') {
-            iconSource = require('./assets/icons/book.png');
-          } else if (route.name === 'TabHarborScreen') {
-            iconSource = require('./assets/icons/boat.png');
-          } else if (route.name === 'TabShipsBattle') {
-            iconSource = require('./assets/icons/game-controller.png');
-          } else if (route.name === 'TabStatistickScreen') {
-            iconSource = require('./assets/icons/history.png');
-          }
-
-          return (
-            <Image
-              source={iconSource}
-              style={[
-                styles.tabIcon,
-                { tintColor: focused ? '#4ECDC4' : '#95A5A6' },
-              ]}
-              resizeMode="contain"
+    <View style={{ flex: 1 }}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          animation: 'fade',
+          animationDuration: 1000,
+          tabBarStyle: styles.tabBar,
+          tabBarBackground: () => (
+            <LinearGradient
+              colors={['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.95)']}
+              style={styles.tabBarGradient}
             />
-          );
-        },
-        tabBarActiveTintColor: '#4ECDC4',
-        tabBarInactiveTintColor: '#95A5A6',
-        tabBarLabelStyle: styles.tabBarLabel,
-        tabBarItemStyle: styles.tabBarItem,
-      })}
-    >
-      <Tab.Screen
-        name="TabQuizScreen"
-        component={TabQuizScreen}
-        options={{ tabBarLabel: 'Quiz' }}
-      />
-      <Tab.Screen
-        name="TabHarborScreen"
-        component={TabHarborScreen}
-        options={{ tabBarLabel: 'Harbor' }}
-      />
-      <Tab.Screen
-        name="TabShipsBattle"
-        component={TabShipsBattle}
-        options={{ tabBarLabel: 'Battle' }}
-      />
-      <Tab.Screen
-        name="TabStatistickScreen"
-        component={TabStatistickScreen}
-        options={{ tabBarLabel: 'History' }}
-      />
-    </Tab.Navigator>
+          ),
+          tabBarIcon: ({ focused }) => {
+            let iconSource;
+
+            if (route.name === 'TabQuizScreen') {
+              iconSource = require('./assets/icons/book.png');
+            } else if (route.name === 'TabHarborScreen') {
+              iconSource = require('./assets/icons/boat.png');
+            } else if (route.name === 'TabShipsBattle') {
+              iconSource = require('./assets/icons/game-controller.png');
+            } else if (route.name === 'TabStatistickScreen') {
+              iconSource = require('./assets/icons/history.png');
+            }
+
+            return (
+              <Image
+                source={iconSource}
+                style={[
+                  styles.tabIcon,
+                  { tintColor: focused ? '#4ECDC4' : '#95A5A6' },
+                ]}
+                resizeMode="contain"
+              />
+            );
+          },
+          tabBarActiveTintColor: '#4ECDC4',
+          tabBarInactiveTintColor: '#95A5A6',
+          tabBarLabelStyle: styles.tabBarLabel,
+          tabBarItemStyle: styles.tabBarItem,
+        })}
+      >
+        <Tab.Screen
+          name="TabQuizScreen"
+          component={TabQuizScreen}
+          options={{ tabBarLabel: 'Quiz' }}
+        />
+        <Tab.Screen
+          name="TabHarborScreen"
+          component={TabHarborScreen}
+          options={{ tabBarLabel: 'Harbor' }}
+        />
+        <Tab.Screen
+          name="TabShipsBattle"
+          component={TabShipsBattle}
+          options={{ tabBarLabel: 'Battle' }}
+        />
+        <Tab.Screen
+          name="TabStatistickScreen"
+          component={TabStatistickScreen}
+          options={{ tabBarLabel: 'History' }}
+        />
+      </Tab.Navigator>
+      <View style={styles.soundControlContainer}>
+        <SoundControl />
+      </View>
+    </View>
   );
 };
 
@@ -163,6 +169,12 @@ const styles = StyleSheet.create({
     height: 45,
     // marginTop: 2,
     marginTop: 12,
+  },
+  soundControlContainer: {
+    position: 'absolute',
+    right: 25,
+    bottom: Platform.OS === 'ios' ? 120 : 112,
+    zIndex: 999,
   },
 });
 
