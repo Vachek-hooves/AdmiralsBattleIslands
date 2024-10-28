@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    
   },
   scrollContent: {
     flexGrow: 1,
@@ -195,6 +196,7 @@ const styles = StyleSheet.create({
   },
   achievementsContainer: {
     marginTop: 20,
+    paddingHorizontal: 20,
   },
   achievementsTitle: {
     fontSize: 22,
@@ -232,8 +234,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   battleButtonGradient: {
-    padding: 15,
+    // padding: 15,
     alignItems: 'center',
+    
   },
   battleButtonText: {
     color: '#fff',
@@ -242,6 +245,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.25)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
+    paddingVertical: 10,
   },
   returnButton: {
     marginTop: 30,
@@ -256,6 +260,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    paddingVertical: 10,
   },
   returnButtonGradient: {
     padding: 15,
