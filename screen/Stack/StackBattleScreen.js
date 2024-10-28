@@ -21,24 +21,13 @@ const StackBattleScreen = () => {
   const { battle, admiralName } = route.params;
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Back Button - Always visible at the top */}
-      {/* <TouchableOpacity 
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <LinearGradient
-          colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0.6)']}
-          style={styles.backButtonGradient}
-        >
-          <Text style={styles.backButtonText}>←</Text>
-        </LinearGradient>
-      </TouchableOpacity> */}
-
-      <ScrollView 
+    
+    
+    <ScrollView 
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+    <SafeAreaView style={styles.container}>
         <Image
           source={battle.image}
           style={styles.battleImage}
@@ -74,8 +63,8 @@ const StackBattleScreen = () => {
             </TouchableOpacity>
           </LinearGradient>
         </View>
-      </ScrollView>
     </SafeAreaView>
+      </ScrollView>
   );
 };
 
