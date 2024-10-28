@@ -7,22 +7,22 @@ workflows:
     environment:
       ios_signing:
       distribution_type: app_store
-      bundle_identifier:
+      bundle_identifier: com.admiral.battleislands
     vars:
-      APP_STORE_APPLE_ID:
-      BUNDLE_ID:
-      CODE_WORKSPACE:
-      CODE_SCHEME:
+      APP_STORE_APPLE_ID: 6737478778
+      BUNDLE_ID: 'com.admiral.battleislands'
+      CODE_WORKSPACE: 'AdmiralsBattleIslands'
+      CODE_SCHEME: 'AdmiralsBattleIslands'
   scripts:
     - name: Install node modules
-        script: |
-          npm install
+      script: |
+        npm install
     - name: Install CocoaPods dependencies
-        script: |
-          cd ios && pod install
+      script: |
+        cd ios && pod install
     - name: Set up provisioning profile settings on  Xcode project
-        script: |
-          cd ios
+      script: |
+        cd ios
           xcode-project use-profiles
     - name: Increment build number
       script: |
