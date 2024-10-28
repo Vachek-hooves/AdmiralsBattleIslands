@@ -263,31 +263,37 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
-    gap: 10,
-    paddingHorizontal: 10, // Added horizontal padding
+    gap: 15, // Increased gap between buttons
+    paddingHorizontal: 20, // Increased horizontal padding
   },
   button: {
-    borderRadius: 12, // Increased border radius
+    borderRadius: 15, // Increased border radius to match design
     overflow: 'hidden',
     marginVertical: 5,
-    borderWidth: 1, // Added border
+    borderWidth: 1,
     borderColor: '#DAA520',
-    textAlign: 'center',
-    
+    elevation: 3, // Added elevation for shadow effect
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   buttonGradient: {
-    padding: 15,
+    padding: 12, // Adjusted padding
     alignItems: 'center',
+    width: '100%', // Ensure gradient fills button width
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingVertical: 10,
-
+    fontSize: 18, // Increased font size
+    fontWeight: '600',
+    letterSpacing: 0.5, // Added letter spacing
   },
   deleteButton: {
-    marginTop: 10,
+    marginTop: 5, // Adjusted margin
   },
 });
 
