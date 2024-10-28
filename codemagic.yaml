@@ -11,7 +11,7 @@ workflows:
       vars:
         APP_STORE_APPLE_ID: 6737478778
         BUNDLE_ID: 'com.admiral.battleislands'
-        CODE_WORKSPACE: 'AdmiralsBattleIslands.xcworkspace'
+        XCODE_WORKSPACE: 'AdmiralsBattleIslands.xcworkspace'
         CODE_SCHEME: 'AdmiralsBattleIslands'
     scripts:
       - name: Install node modules
