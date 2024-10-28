@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   buttonGradient: {
-    padding: 12, // Adjusted padding
+    // padding: 12, // Adjusted padding
     alignItems: 'center',
     width: '100%', // Ensure gradient fills button width
   },
@@ -291,6 +291,7 @@ const styles = StyleSheet.create({
     fontSize: 18, // Increased font size
     fontWeight: '600',
     letterSpacing: 0.5, // Added letter spacing
+    paddingVertical: 10,
   },
   deleteButton: {
     marginTop: 5, // Adjusted margin
