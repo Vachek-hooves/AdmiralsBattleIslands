@@ -218,11 +218,10 @@ const styles = StyleSheet.create({
   resultContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    alignItems: 'center',    
   },
   resultContent: {
-    width: '100%',
+    width: '90%',
     backgroundColor: 'rgba(0,0,0,0.7)',
     borderRadius: 15,
     padding: 20,
@@ -311,15 +310,17 @@ const optionButtonStyles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    
   },
   optionButton: {
-    padding: 15,
+    // padding: 15,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#DAA520',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   correctOption: {
+    
     borderColor: '#00FF00',
     borderWidth: 2,
     shadowColor: '#00FF00',
@@ -352,5 +353,6 @@ const optionButtonStyles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
     letterSpacing: 0.5,
+    paddingVertical: 10,
   },
 });

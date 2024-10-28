@@ -1,4 +1,4 @@
-import TrackPlayer, { Capability, State } from 'react-native-track-player';
+import TrackPlayer, {Capability, State} from 'react-native-track-player';
 
 export let isPlayerInitialized = false;
 let initializationPromise = null;
@@ -52,7 +52,7 @@ export const setupPlayer = async () => {
 
       await TrackPlayer.add({
         id: 'backgroundMusic',
-        url: require('../assets/sound/polka.mp3'),
+        url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
         title: 'Background Music',
         artist: 'Your App',
       });
@@ -80,7 +80,7 @@ export const playBackgroundMusic = async () => {
       await TrackPlayer.reset();
       await TrackPlayer.add({
         id: 'backgroundMusic',
-        url: require('../assets/sound/polka.mp3'),
+        url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
         title: 'Background Music',
         artist: 'Your App',
       });
@@ -93,7 +93,7 @@ export const playBackgroundMusic = async () => {
     await setupPlayer();
     await TrackPlayer.add({
       id: 'backgroundMusic',
-      url: require('../assets/sound/polka.mp3'),
+      url: require('../../assets/sound/bgSound/shipsBattle.mp3'),
       title: 'Background Music',
       artist: 'Your App',
     });

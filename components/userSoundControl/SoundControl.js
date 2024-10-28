@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import IconMusic from './IconMusic';
-import SoundIcon from './soundIcon';
+import SoundIcon from './SoundIcon';
 
 const SoundControl = () => {
   const [playTrack, setPlayTrack] = useState(false);
