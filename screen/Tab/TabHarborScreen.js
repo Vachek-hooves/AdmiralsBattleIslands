@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,7 +9,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -53,7 +53,7 @@ const TabHarborScreen = () => {
       quality: 1,
     };
 
-    launchImageLibrary(options, (response) => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         return;
       }
@@ -92,27 +92,24 @@ const TabHarborScreen = () => {
             }
           },
         },
-      ]
+      ],
     );
   };
 
   return (
     <ImageBackground
       source={require('../../assets/image/bg/userBG.png')}
-      style={styles.container}
-    >
+      style={styles.container}>
       <LinearGradient
         colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.3)']}
-        style={styles.overlay}
-      >
+        style={styles.overlay}>
         <View style={styles.profileContainer}>
           <TouchableOpacity
             style={styles.imageContainer}
             onPress={selectImage}
-            disabled={!isEditing}
-          >
+            disabled={!isEditing}>
             {userImage ? (
-              <Image source={{ uri: userImage }} style={styles.profileImage} />
+              <Image source={{uri: userImage}} style={styles.profileImage} />
             ) : (
               <View style={styles.placeholderImage}>
                 <Text style={styles.placeholderText}>Add Photo</Text>
@@ -147,19 +144,16 @@ const TabHarborScreen = () => {
                 <TouchableOpacity style={styles.button} onPress={saveUserData}>
                   <LinearGradient
                     colors={['#4a4a4a', '#2a2a2a']}
-                    style={styles.buttonGradient}
-                  >
+                    style={styles.buttonGradient}>
                     <Text style={styles.buttonText}>Save</Text>
                   </LinearGradient>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => setIsEditing(false)}
-                >
+                  onPress={() => setIsEditing(false)}>
                   <LinearGradient
                     colors={['#4a4a4a', '#2a2a2a']}
-                    style={styles.buttonGradient}
-                  >
+                    style={styles.buttonGradient}>
                     <Text style={styles.buttonText}>Cancel</Text>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -168,23 +162,19 @@ const TabHarborScreen = () => {
               <>
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => setIsEditing(true)}
-                >
+                  onPress={() => setIsEditing(true)}>
                   <LinearGradient
                     colors={['#4a4a4a', '#2a2a2a']}
-                    style={styles.buttonGradient}
-                  >
+                    style={styles.buttonGradient}>
                     <Text style={styles.buttonText}>Edit Profile</Text>
                   </LinearGradient>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.button, styles.deleteButton]}
-                  onPress={deleteProfile}
-                >
+                  onPress={deleteProfile}>
                   <LinearGradient
                     colors={['#8B0000', '#4a0000']}
-                    style={styles.buttonGradient}
-                  >
+                    style={styles.buttonGradient}>
                     <Text style={styles.buttonText}>Delete Profile</Text>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -205,6 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    
   },
   profileContainer: {
     alignItems: 'center',
