@@ -8,28 +8,29 @@ export const setupPlayer = () => {
 
   Sound.setCategory('Playback');
   
-  backgroundMusic = new Sound(
-    require('../../assets/sound/bgSound/shipsBattle.mp3'), 
-    (error) => {
-      if (error) {
-        console.error('Failed to load sound', error);
-        return;
+  return new Promise((resolve, reject) => {
+    backgroundMusic = new Sound(
+      require('../../assets/sound/bgSound/shipsBattle.mp3'), 
+      (error) => {
+        if (error) {
+          console.error('Failed to load sound', error);
+          reject(error);
+          return;
+        }
+        backgroundMusic.setNumberOfLoops(-1);
+        backgroundMusic.setVolume(0.5);
+        resolve();
       }
-      backgroundMusic.setNumberOfLoops(-1);
-      backgroundMusic.setVolume(0.5);
-      // Auto-play after setup
-      playBackgroundMusic();
-    }
-  );
+    );
+  });
 };
 
-export const playBackgroundMusic = () => {
+export const playBackgroundMusic = async () => {
   if (!backgroundMusic) {
-    setupPlayer();
-    return;
+    await setupPlayer();
   }
   
-  if (!isPlaying) {
+  if (!isPlaying && backgroundMusic) {
     backgroundMusic.play((success) => {
       if (!success) {
         console.log('Playback failed due to audio decoding errors');

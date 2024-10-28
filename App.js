@@ -29,9 +29,8 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const [isSoundOn, setIsSoundOn] = useState(true); // Set initial state to true
+  const [isSoundOn, setIsSoundOn] = useState(true);
 
-  // Handle app state changes
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (nextAppState === 'active' && isSoundOn) {
@@ -42,9 +41,13 @@ const TabNavigator = () => {
     });
 
     // Initialize sound when app starts
-    setupPlayer();
-    playBackgroundMusic();
-    setIsSoundOn(true);
+    const initSound = async () => {
+      await setupPlayer();
+      await playBackgroundMusic();
+      setIsSoundOn(true);
+    };
+
+    initSound();
 
     return () => {
       subscription.remove();
