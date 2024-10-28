@@ -39,21 +39,9 @@ workflows:
       - name: Build ipa for distribution
         script: |
           #!/bin/sh
-          cd $CM_BUILD_DIR
-          # Create the bundle directory if it doesn't exist
-          mkdir -p ios/bundle
-          # Generate the bundle manually
-          npx react-native bundle \
-            --platform ios \
-            --dev false \
-            --entry-file index.js \
-            --bundle-output ios/bundle/main.jsbundle \
-            --assets-dest ios/bundle
-          # Build the IPA
           xcode-project build-ipa \
-            --workspace "ios/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --config Release
+            --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
