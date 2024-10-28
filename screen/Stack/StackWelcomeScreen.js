@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View , ImageBackground} from 'react-native'
 import React from 'react'
 
 const WelcomeScreen = () => {
   return (
-    <View>
-      <Text>WelcomeScreen</Text>
-    </View>
+    <ImageBackground source={require('../../assets/image/bg/welcome.png')} style={{flex: 1}}>
+
+    </ImageBackground>
   )
 }
 

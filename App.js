@@ -183,8 +183,8 @@ function App() {
             animationDuration: 1000,
           }}
         >
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="StackQuizScreen" component={StackQuizScreen} />
           <Stack.Screen name="StackShipsBattle" component={StackShipsBattle} />
           <Stack.Screen
