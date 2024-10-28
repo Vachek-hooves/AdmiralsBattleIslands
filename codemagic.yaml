@@ -20,6 +20,11 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
+      - name: Bundle React Native code
+        script: |
+          cd ios
+          export NODE_BINARY=$(command -v node)
+          ../node_modules/react-native/scripts/react-native-xcode.sh
       - name: Set up provisioning profile settings on  Xcode project
         script: |
           cd ios
