@@ -138,8 +138,10 @@ const styles = StyleSheet.create({
   },
   content: {
     // padding: 20,
-    paddingTop: 40,
-    minHeight: 500,
+    // paddingTop: 40,
+    minHeight: 550,
+    // width: '100%',
+    
   },
   name: {
     fontSize: 36,
@@ -173,6 +175,8 @@ const styles = StyleSheet.create({
   },
   quoteContainer: {
     marginBottom: 30,
+    marginHorizontal: 20,
+    paddingVertical: 10,
   },
   quote: {
     fontSize: 20,
@@ -193,6 +197,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 30,
     textAlign: 'justify',
+    paddingHorizontal: 20,
   },
   achievementsContainer: {
     marginTop: 20,
@@ -232,6 +237,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    marginHorizontal: 20,
   },
   battleButtonGradient: {
     // padding: 15,
@@ -248,9 +254,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   returnButton: {
-    marginTop: 30,
+    marginVertical: 30,
     marginBottom: 10,
-    borderRadius: 10,
     overflow: 'hidden',
     elevation: 5,
     shadowColor: '#000',
@@ -261,9 +266,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     paddingVertical: 10,
+    marginHorizontal: 20,
   },
   returnButtonGradient: {
-    padding: 15,
+    // padding: 15,
+    borderRadius: 10,
     alignItems: 'center',
   },
   returnButtonText: {
@@ -273,5 +280,6 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.25)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
+    paddingVertical: 10,
   },
 });
