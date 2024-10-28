@@ -118,14 +118,14 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="TabQuizScreen"
-        component={TabQuizScreen}
-        options={{ tabBarLabel: 'Quiz' }}
-      />
-      <Tab.Screen
         name="TabHarborScreen"
         component={TabHarborScreen}
         options={{ tabBarLabel: 'Harbor' }}
+      />
+      <Tab.Screen
+        name="TabQuizScreen"
+        component={TabQuizScreen}
+        options={{ tabBarLabel: 'Quiz' }}
       />
       <Tab.Screen
         name="TabShipsBattle"
