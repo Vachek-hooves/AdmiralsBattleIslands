@@ -194,24 +194,26 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    // padding: 20,
     
   },
   profileContainer: {
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'rgba(40, 40, 40, 0.2)',
-    borderRadius: 15,
+    backgroundColor: 'rgba(40, 40, 40, 0.6)', // Increased opacity for better contrast
+    borderRadius: 25, // Increased border radius
     borderWidth: 1,
     borderColor: '#DAA520',
+    width: '90%', // Added width constraint
+    alignSelf: 'center', // Center the container
   },
   imageContainer: {
-    width: 200,
-    height: 200,
+    width: 150, // Reduced size for better proportion
+    height: 150, // Reduced size for better proportion
     borderRadius: 75,
     overflow: 'hidden',
     marginBottom: 20,
-    borderWidth: 2,
+    borderWidth: 3, // Increased border width
     borderColor: '#DAA520',
   },
   profileImage: {
@@ -262,11 +264,16 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     gap: 10,
+    paddingHorizontal: 10, // Added horizontal padding
   },
   button: {
-    borderRadius: 8,
+    borderRadius: 12, // Increased border radius
     overflow: 'hidden',
     marginVertical: 5,
+    borderWidth: 1, // Added border
+    borderColor: '#DAA520',
+    textAlign: 'center',
+    
   },
   buttonGradient: {
     padding: 15,
@@ -276,6 +283,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    paddingVertical: 10,
+
   },
   deleteButton: {
     marginTop: 10,
