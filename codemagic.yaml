@@ -17,7 +17,6 @@ workflows:
       - name: Install node modules
         script: |
           npm install
-      
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
