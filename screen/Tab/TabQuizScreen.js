@@ -40,7 +40,7 @@ const TabQuizScreen = ({ navigation }) => {
   const handleLevelPress = (levelNumber) => {
     const quizLevel = quizData.find(quiz => quiz.id === levelNumber);
     if (quizLevel.isActive) {
-      console.log(`Level ${levelNumber} selected`);
+      // console.log(`Level ${levelNumber} selected`);
       navigation.navigate('StackQuizScreen', { levelNumber });
     } else {
       Alert.alert(

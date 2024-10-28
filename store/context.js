@@ -65,7 +65,7 @@ export const AppContextProvider = ({ children }) => {
         quiz.id === nextLevelNumber ? { ...quiz, isActive: true } : quiz
       );
       await updateQuizData(updatedQuizData);
-      console.log(`Unlocked level ${nextLevelNumber}`);
+      // console.log(`Unlocked level ${nextLevelNumber}`);
     } catch (error) {
       console.error('Error unlocking next level:', error);
     }

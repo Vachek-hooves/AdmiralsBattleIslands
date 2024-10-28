@@ -36,7 +36,7 @@ const ShipCard = ({ ship, onPress }) => (
 
 const TabShipsBattle = ({ navigation }) => {
   const startBattle = (ship) => {
-    console.log(ship);
+   
     navigation.navigate('StackShipsBattle', {
       enemyShip: ship.enemyShip,
       playerShip: ship.playerShip,
