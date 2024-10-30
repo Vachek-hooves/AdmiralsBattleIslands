@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import { useAppContextProvider } from '../../store/context';
 import LinearGradient from 'react-native-linear-gradient';
-import { shipQuizData } from '../../data/shipQuiz'; // Import the local data
+import { shipQuizData } from '../../data/shipQuiz'; 
+import BackIcon from '../../components/ui/BackIcon';
 
 const StackQuizScreen = ({ route, navigation }) => {
   const { quizData, saveQuizScore, unlockNextLevel } = useAppContextProvider();
@@ -156,6 +157,7 @@ const StackQuizScreen = ({ route, navigation }) => {
             />
           ))}
         </ScrollView>
+        <BackIcon />
       </LinearGradient>
     </ImageBackground>
   );
