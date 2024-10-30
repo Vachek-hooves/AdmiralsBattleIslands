@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  Animated,
 } from 'react-native';
 import { useAppContextProvider } from '../../store/context';
 import LinearGradient from 'react-native-linear-gradient';
@@ -148,12 +149,13 @@ const StackQuizScreen = ({ route, navigation }) => {
           
           {currentQuestion.options.map((option, index) => (
             <OptionButton
-              key={index}
+              key={`${currentQuestionIndex}-${index}`}
               option={option}
               onPress={() => handleAnswer(option)}
               selected={selectedAnswer === option}
               correct={isCorrect !== null && option === currentQuestion.correctAnswer}
               disabled={selectedAnswer !== null}
+              index={index}
             />
           ))}
         </ScrollView>
@@ -263,38 +265,67 @@ const styles = StyleSheet.create({
   },
 });
 
-const OptionButton = ({ option, onPress, selected, correct, disabled }) => {
+const OptionButton = ({ option, onPress, selected, correct, disabled, index }) => {
+  const slideAnim = React.useRef(new Animated.Value(-100)).current;
+  const opacityAnim = React.useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    slideAnim.setValue(-100);
+    opacityAnim.setValue(0);
+    
+    Animated.sequence([
+      Animated.delay(index * 100),
+      Animated.parallel([
+        Animated.spring(slideAnim, {
+          toValue: 0,
+          useNativeDriver: true,
+          tension: 50,
+          friction: 7,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start();
+  }, [option]);
+
   let gradientColors = ['rgba(26, 26, 26, 0.9)', 'rgba(51, 51, 51, 0.9)']; // default
   
   if (selected) {
     gradientColors = correct 
-      ? ['#004d00', '#006400'] // green gradient for correct
-      : ['#8B0000', '#B22222']; // red gradient for incorrect
+      ? ['#004d00', '#006400']
+      : ['#8B0000', '#B22222'];
   }
 
   return (
-    <TouchableOpacity 
-      style={optionButtonStyles.optionButtonContainer} 
-      onPress={onPress}
-      disabled={disabled} // Use the passed disabled prop
-    >
-      <LinearGradient
-        colors={gradientColors}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={[
-          optionButtonStyles.optionButton,
-          selected && (correct 
-            ? optionButtonStyles.correctOption 
-            : optionButtonStyles.incorrectOption)
-        ]}
-      >
-        <Text style={optionButtonStyles.optionText}>
-          {option}
-          {selected && (correct ? ' ✓' : ' ✗')}
-        </Text>
-      </LinearGradient>
-    </TouchableOpacity>
+    <Animated.View style={[
+      optionButtonStyles.optionButtonContainer,
+      {
+        transform: [{ translateX: slideAnim }],
+        opacity: opacityAnim,
+      }
+    ]}>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
+        <LinearGradient
+          colors={gradientColors}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={[
+            optionButtonStyles.optionButton,
+            selected && (correct 
+              ? optionButtonStyles.correctOption 
+              : optionButtonStyles.incorrectOption)
+          ]}
+        >
+          <Text style={optionButtonStyles.optionText}>
+            {option}
+            {selected && (correct ? ' ✓' : ' ✗')}
+          </Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
