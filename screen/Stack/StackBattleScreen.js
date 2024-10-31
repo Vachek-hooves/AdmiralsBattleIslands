@@ -21,13 +21,11 @@ const StackBattleScreen = () => {
   const { battle, admiralName } = route.params;
 
   return (
-    
-    
-    <ScrollView 
+    <SafeAreaView style={styles.container}>
+      <ScrollView 
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-    <SafeAreaView style={styles.container}>
         <Image
           source={battle.image}
           style={styles.battleImage}
@@ -63,8 +61,8 @@ const StackBattleScreen = () => {
             </TouchableOpacity>
           </LinearGradient>
         </View>
-    </SafeAreaView>
       </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -72,10 +70,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+  
   },
   scrollContent: {
     flexGrow: 1,
     backgroundColor: '#000',
+    paddingBottom: 20, // Add padding to bottom
   },
   battleImage: {
     width: width,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 20,
   },
   content: {
-    // padding: 20,
+    padding: 20,
     minHeight: 450,
     
   },
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   returnButtonGradient: {
-    
-    // padding: 15,
+    padding: 15,
     alignItems: 'center',
   },
   returnButtonText: {
