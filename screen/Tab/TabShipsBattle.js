@@ -46,9 +46,9 @@ const TabShipsBattle = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/image/bg/shipsBatlle.png')}
+      source={require('../../assets/image/bg/admiralBg.png')}
       style={styles.backgroundImage}
-      blurRadius={100}
+      blurRadius={1}
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     padding: 15,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   cardTitle: {
     color: '#fff',

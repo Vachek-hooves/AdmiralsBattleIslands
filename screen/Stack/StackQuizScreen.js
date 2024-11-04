@@ -98,12 +98,13 @@ const StackQuizScreen = ({ route, navigation }) => {
   if (showResult) {
     return (
       <ImageBackground
-        source={localQuizLevel.admiralInfo.image}
+        // source={localQuizLevel.admiralInfo.image}
+        source={require('../../assets/image/bg/admiralBg.png')}
         style={styles.backgroundImage}
-        blurRadius={20}
+        blurRadius={0}
       >
         <LinearGradient
-          colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.9)']}
+          colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']}
           style={styles.resultContainer}
         >
           <View style={styles.resultContent}>
@@ -131,12 +132,13 @@ const StackQuizScreen = ({ route, navigation }) => {
 
   return (
     <ImageBackground
-      source={localQuizLevel.admiralInfo.image}
+      // source={localQuizLevel.admiralInfo.image}
+      source={require('../../assets/image/bg/admiralBg.png')}
       style={styles.backgroundImage}
-      blurRadius={30}
+      blurRadius={0}
     >
       <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.85)']}
+        colors={['rgba(0,0,0,0.01)', 'rgba(0,0,0,0.05)']}
         style={styles.overlay}
       >
         <ScrollView contentContainerStyle={styles.container}>

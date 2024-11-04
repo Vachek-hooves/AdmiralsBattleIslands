@@ -1,32 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import { useAppContextProvider } from '../../store/context';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import {useAppContextProvider} from '../../store/context';
 import LinearGradient from 'react-native-linear-gradient';
-import { shipQuizData } from '../../data/shipQuiz';
-import { BlurView } from '@react-native-community/blur';
-import { useNavigation } from '@react-navigation/native';
+import {shipQuizData} from '../../data/shipQuiz';
+import {BlurView} from '@react-native-community/blur';
+import {useNavigation} from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const cardWidth = width * 0.9;
 const cardHeight = 550;
 
-const AdmiralCard = ({ admiral, quizId, isActive, onPress }) => {
+const AdmiralCard = ({admiral, quizId, isActive, onPress}) => {
   if (!admiral) return null;
 
   const originalQuiz = shipQuizData.find(quiz => quiz.id === quizId);
   const admiralImage = originalQuiz?.admiralInfo?.image;
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={styles.card}
       onPress={onPress}
-      disabled={!isActive}
-    >
-      <ImageBackground 
-        source={admiralImage} 
+      disabled={!isActive}>
+      <ImageBackground
+        source={admiralImage}
         style={styles.admiralImage}
-        resizeMode="cover"
-      >
+        resizeMode="cover">
         {!isActive && (
           <BlurView
             style={styles.blurView}
@@ -37,8 +43,7 @@ const AdmiralCard = ({ admiral, quizId, isActive, onPress }) => {
         )}
         <LinearGradient
           colors={['transparent', 'rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.95)']}
-          style={styles.cardGradient}
-        >
+          style={styles.cardGradient}>
           <View style={styles.cardContent}>
             <Text style={styles.admiralName}>{admiral.name}</Text>
             <Text style={styles.admiralDescription}>{admiral.description}</Text>
@@ -53,7 +58,7 @@ const AdmiralCard = ({ admiral, quizId, isActive, onPress }) => {
 };
 
 const TabStatistickScreen = () => {
-  const { quizData } = useAppContextProvider();
+  const {quizData} = useAppContextProvider();
   const navigation = useNavigation();
 
   const admiralsData = quizData
@@ -61,39 +66,41 @@ const TabStatistickScreen = () => {
     .map(quiz => ({
       admiral: quiz.admiralInfo,
       quizId: quiz.id,
-      isActive: quiz.isActive
+      isActive: quiz.isActive,
     }));
 
   const handleAdmiralPress = (admiral, quizId) => {
     navigation.navigate('StackAdmiralScreen', {
       admiral,
-      quizId
+      quizId,
     });
   };
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['#1a2a6c', '#b21f1f', '#fdbb2d']}
-        style={styles.background}
-      >
-        <Text style={styles.title}>Famous Admirals</Text>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {admiralsData.map(({ admiral, quizId, isActive }, index) => (
-            <AdmiralCard 
-              key={index} 
-              admiral={admiral} 
-              quizId={quizId}
-              isActive={isActive}
-              onPress={() => handleAdmiralPress(admiral, quizId)}
-            />
-          ))}
-        </ScrollView>
-        <View style={{height: 120}} />
-      </LinearGradient>
+      <ImageBackground
+        source={require('../../assets/image/bg/admiralBg.png')}
+        style={{flex: 1}}>
+        {/* <LinearGradient
+          colors={['#1a2a6c', '#b21f1f', '#fdbb2d']}
+          style={styles.background}> */}
+          <Text style={styles.title}>Famous Admirals</Text>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}>
+            {admiralsData.map(({admiral, quizId, isActive}, index) => (
+              <AdmiralCard
+                key={index}
+                admiral={admiral}
+                quizId={quizId}
+                isActive={isActive}
+                onPress={() => handleAdmiralPress(admiral, quizId)}
+              />
+            ))}
+          </ScrollView>
+          <View style={{height: 120}} />
+        {/* </LinearGradient> */}
+      </ImageBackground>
     </View>
   );
 };
@@ -112,9 +119,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: { width: -1, height: 1 },
+    textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
-    marginTop:50
+    marginTop: 50,
   },
   scrollContent: {
     alignItems: 'center',

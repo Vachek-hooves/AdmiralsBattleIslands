@@ -98,7 +98,8 @@ const TabHarborScreen = () => {
 
   return (
     <ImageBackground
-      source={require('../../assets/image/bg/userBG.png')}
+      // source={require('../../assets/image/bg/userBG.png')}
+      source={require('../../assets/image/bg/admiralBg.png')}
       style={styles.container}>
       <LinearGradient
         colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.3)']}

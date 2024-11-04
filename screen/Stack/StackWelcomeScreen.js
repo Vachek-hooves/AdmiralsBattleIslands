@@ -49,7 +49,8 @@ const WelcomeScreen = ({ navigation }) => {
 
   return (
     <ImageBackground 
-      source={require('../../assets/image/bg/welcome.png')} 
+      // source={require('../../assets/image/bg/welcome.png')} 
+      source={require('../../assets/image/bg/admiralBg.png')}
       style={styles.container}
     >
       <LinearGradient
